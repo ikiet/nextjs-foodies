@@ -1,9 +1,13 @@
 import { getMeal } from "@/lib/meals";
 import classes from "./page.module.css";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export default function MealDetailPage({ params }) {
   const meal = getMeal(params.slug);
+  if (!meal) {
+    return notFound();
+  }
   return (
     <>
       <header className={classes.header}>
@@ -19,9 +23,7 @@ export default function MealDetailPage({ params }) {
         </div>
       </header>
       <main>
-        <p
-          className={classes.instructions}
-        >{meal.instructions}</p>
+        <p className={classes.instructions}>{meal.instructions}</p>
       </main>
     </>
   );
